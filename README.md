@@ -1,78 +1,74 @@
-# Nexufy Backend
-
-## Introducción
-Nexufy es una plataforma que actúa como un nexo entre productores y proveedores de insumos, como plásticos, vidrio y otros materiales. Este backend maneja la lógica de negocio y la API para las interacciones en la plataforma, permitiendo la gestión de productos, usuarios y roles, con características de seguridad y autenticación.
-
-## Tecnologías Utilizadas
+README for Backend
+## Nexufy Backend
+### Introduction
+Nexufy is a platform that connects producers and suppliers of inputs such as plastics, glass, and
+other materials. This backend handles the business logic and API for interactions on the platform,
+enabling the management of products, users, and roles, with security and authentication features.
+### Technologies Used
 - **Framework**: Spring Boot
-- **Base de Datos**: MongoDB
-- **Autenticación**: JWT (Json Web Token)
-- **Generación de Reportes**: JasperReports
-- **Seguridad**: Spring Security
-- **Documentación de API**: Swagger
-
-## Estructura de la Base de Datos
-La base de datos MongoDB se organiza en las siguientes colecciones:
-- **comments**: Para almacenar comentarios.
-- **customers**: Contiene información sobre los clientes registrados, incluyendo roles y productos asociados.
-- **products**: Almacena los productos publicados.
-- **roles**: Define los roles del sistema (ROLE_USER, ROLE_ADMIN, ROLE_SUPERADMIN).
-
-## Roles y Permisos
-- **Usuario sin registrar (Visitante)**: Navegar y ver publicaciones.
-- **Usuario Registrado (ROLE_USER)**: Ver detalles de otros usuarios.
-- **Administrador (ROLE_ADMIN)**: Publicar y gestionar sus propios productos.
-- **Superadministrador (ROLE_SUPERADMIN)**: Gestionar todos los usuarios, productos y ver estadísticas.
-
-## Guía de Instalación y Configuración
-### Requisitos Previos
+- **Database**: MongoDB
+- **Authentication**: JWT (Json Web Token)
+- **Report Generation**: JasperReports
+- **Security**: Spring Security
+- **API Documentation**: Swagger
+### Database Structure
+The MongoDB database is organized into the following collections:
+- **comments**: Stores comments.
+- **customers**: Contains registered customer information, including roles and associated products.
+- **products**: Stores published products.
+- **roles**: Defines system roles (ROLE_USER, ROLE_ADMIN, ROLE_SUPERADMIN).
+### Roles and Permissions
+- **Unregistered User (Visitor)**: Browse and view product listings.
+- **Registered User (ROLE_USER)**: View details of other users.
+- **Administrator (ROLE_ADMIN)**: Publish and manage their own products.
+- **Super Administrator (ROLE_SUPERADMIN)**: Manage all users, products, and view statistics.
+### Installation and Configuration Guide
+#### Prerequisites
 - Java 17
 - MongoDB
 - Git
-
-### Clonar el Repositorio
+#### Clone the Repository
 ```bash
 git clone https://github.com/GasparTorres/nexufy.git
 cd nexufy
-Configuración
-Edita el archivo src/main/resources/application.properties con tus credenciales de MongoDB y configuraciones de JWT:
-
-properties
-Copiar código
+```
+#### Configuration
+Edit the `src/main/resources/application.properties` file with your MongoDB credentials and JWT
+settings:
+```properties
 spring.application.name=nexufy
 spring.data.mongodb.database=Nexufy
-spring.data.mongodb.uri=mongodb+srv://<usuario>:<contraseña>@nexufy.mongodb.net/
+spring.data.mongodb.uri=mongodb+srv://<user>:<password>@nexufy.mongodb.net/
 nexufy.app.jwtSecret=YourJWTSecretKey
 nexufy.app.jwtExpirationMs=86400000
 server.port=8081
 spring.main.allow-circular-references=true
-Ejecutar la Aplicación
-bash
-Copiar código
+```
+#### Run the Application
+```bash
 ./mvnw install
 ./mvnw spring-boot:run
-La aplicación estará disponible en http://localhost:8081.
-
-Arquitectura del Proyecto
-Controladores: Gestionan las solicitudes HTTP.
-Servicios: Contienen la lógica de negocio.
-Repositorios: Manejan la interacción con la base de datos.
-Seguridad: Configura CORS y JWT en SecurityConfig.
-API Endpoints
-Autenticación
-POST /api/auth/login: Iniciar sesión.
-POST /api/auth/register: Registro de nuevos usuarios.
-Clientes
-GET /api/customer/all: Obtener todos los clientes.
-PUT /api/customer/{id}: Actualizar cliente.
-DELETE /api/customer/{id}: Eliminar cliente.
-Productos
-GET /api/customer/{id}/products: Obtener productos de un cliente.
-POST /api/products/customer/{customerId}: Crear producto.
-Usuarios y Roles
-PUT /api/user/promote/admin: Promover usuario a administrador.
-Seguridad (CORS y JWT)
-La configuración de seguridad en SecurityConfig permite:
-
-Acceso público: login, registro y acceso a productos.
-Protección: Rutas de superadministradores y reportes requieren permisos específicos.
+```
+The application will be available at `http://localhost:8081`.
+### Project Architecture
+- **Controllers**: Manage HTTP requests.
+- **Services**: Contains business logic.
+- **Repositories**: Handle database interaction.
+- **Security**: Configures CORS and JWT in `SecurityConfig`.
+### API Endpoints
+#### Authentication
+- `POST /api/auth/login`: Log in.
+- `POST /api/auth/register`: Register new users.
+#### Customers
+- `GET /api/customer/all`: Get all customers.
+- `PUT /api/customer/{id}`: Update customer.
+- `DELETE /api/customer/{id}`: Delete customer.
+#### Products
+- `GET /api/customer/{id}/products`: Get products of a customer.
+- `POST /api/products/customer/{customerId}`: Create a product.
+#### Users and Roles
+- `PUT /api/user/promote/admin`: Promote user to administrator.
+### Security (CORS and JWT)
+The security configuration in `SecurityConfig` allows:
+- **Public access**: login, registration, and access to products.
+- **Protection**: Routes for super administrators and reports require specific permissions.
